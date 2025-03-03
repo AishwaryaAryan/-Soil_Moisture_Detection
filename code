@@ -1,0 +1,50 @@
+#define BLYNK_TEMPLATE_ID "TMPL3Qob6s_zf"
+#define BLYNK_TEMPLATE_NAME "mitti"
+#define BLYNK_AUTH_TOKEN "pimpaTT83klh8n4AsStI0C-lOVULI-DI"
+
+#define BLYNK_PRINT Serial
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+
+char auth[] = "pimpaTT83klh8n4AsStI0C-lOVULI-DI";  
+char ssid[] = "Realme P1";        
+char pass[] = "12345678";    
+
+#define SOIL_PIN A0
+#define BUZZER_PIN D5
+
+BlynkTimer timer;
+
+void sendSoilMoisture() {
+  int soilValue = analogRead(SOIL_PIN);
+  int moisturePercent = map(soilValue, 1024, 300, 0, 100);
+  moisturePercent = constrain(moisturePercent, 0, 100);
+
+  Serial.print("Soil Moisture: ");
+  Serial.print(moisturePercent);
+  Serial.println("%");
+
+  Blynk.virtualWrite(V1, moisturePercent);
+
+  if (moisturePercent < 30) {
+    digitalWrite(BUZZER_PIN, HIGH);
+    Blynk.virtualWrite(V2, 255);
+  } else {
+    digitalWrite(BUZZER_PIN, LOW);
+    Blynk.virtualWrite(V2, 0);
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+  Blynk.begin(auth, ssid, pass);
+  pinMode(BUZZER_PIN, OUTPUT);
+  digitalWrite(BUZZER_PIN, LOW);
+
+  timer.setInterval(2000L, sendSoilMoisture);
+}
+
+void loop() {
+  Blynk.run();
+  timer.run();
+}
