@@ -1,0 +1,28 @@
+IoT-Based Soil Moisture Detection Using ESP8266
+
+Overview
+
+This project measures soil moisture levels using an ESP8266 NodeMCU and a soil moisture sensor. The data can be used for smart irrigation systems to prevent overwatering or underwatering.
+
+Components Used
+ESP8266 NodeMCU
+Soil Moisture Sensor
+Jumper Wires
+Circuit Connections
+
+Code Explanation
+Reads soil moisture data from the sensor.
+Displays the readings on the Serial Monitor.
+Can be extended to trigger an automatic watering system.
+
+Installation & Usage
+
+1. Connect the components as per the circuit
+2. Upload the code using Arduino IDE
+3. Open the Serial Monitor to view real-time soil moisture levels
+
+Applications
+
+✅ Smart irrigation systems
+✅ Precision agriculture
+✅ Home gardening automation
